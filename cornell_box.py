@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 
-from crt.lighting import PointLight, SquareLight
+from crt.lights import PointLight, SquareLight
 from crt.cameras import PinholeCamera
 from crt.passes import normal_pass, depth_pass, instance_pass
 from crt.rotations import euler_to_rotmat

@@ -2,7 +2,7 @@ import os
 import numpy as np
 from PIL import Image
 
-from crt.lighting import PointLight
+from crt.lights import PointLight
 from crt.cameras import PinholeCamera
 from crt.rotations import euler_to_rotmat
 from crt.static import StaticScene, StaticEntity
