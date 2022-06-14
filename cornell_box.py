@@ -3,7 +3,7 @@ from PIL import Image
 
 from crt.lights import PointLight, SquareLight
 from crt.cameras import PinholeCamera
-from crt.passes import normal_pass, depth_pass, instance_pass
+from crt.passes import normal_pass, intersection_pass, instance_pass
 from crt.rotations import euler_to_rotmat
 from crt import Entity, render
 
@@ -36,7 +36,7 @@ image = render(camera, lights, entities, min_samples=20, max_samples=100,
 Image.fromarray(image.astype(np.uint8)).save('cornell_box.png')
 
 # Get the intersections:
-intersections, depth_image = depth_pass(camera, entities, return_image=True)
+intersections, depth_image = intersection_pass(camera, entities, return_image=True)
 Image.fromarray(depth_image.astype(np.uint8)).save('cornell_box_depth.png')
 
 # Get the instances:
@@ -44,5 +44,5 @@ instances, instance_image = instance_pass(camera, entities, return_image=True)
 Image.fromarray(instance_image.astype(np.uint8)).save('cornell_box_instance.png')
 
 # Get the normals:
-normal_image = normal_pass(camera, entities)
+normals, normal_image = normal_pass(camera, entities, return_image=True)
 Image.fromarray(normal_image.astype(np.uint8)).save('cornell_box_normals.png')
