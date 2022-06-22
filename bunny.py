@@ -5,7 +5,7 @@ from PIL import Image
 from crt.lights import PointLight
 from crt.cameras import PinholeCamera
 from crt.rotations import euler_to_rotmat
-from crt.static import StaticScene, StaticEntity
+from crt import BodyFixedGroup, BodyFixedEntity
 
 # Create the camera object:
 camera = PinholeCamera(30, [500,500], [20,20], 
@@ -16,15 +16,15 @@ camera = PinholeCamera(30, [500,500], [20,20],
 sun = PointLight(10, position=np.array([0,0,10]))
 
 # Create static entities:
-bunny = StaticEntity("data/bunny.obj", color=[0.5,1,0.5], smooth_shading=True,
+bunny = BodyFixedEntity("data/bunny.obj", color=[0.5,1,0.5], smooth_shading=True,
                      position=np.array([0,0,-0.1]),
                      rotation=euler_to_rotmat('321', np.array([-120,0,-90]), degrees=True))
 
-floor = StaticEntity("data/cube.obj", color=[0.5,0.5,0.9],
+floor = BodyFixedEntity("data/cube.obj", color=[0.5,0.5,0.9],
                      position=np.array([0,0,-10.065]), scale=10)
 
 # Create the static scene:
-static_scene = StaticScene([bunny, floor])
+static_scene = BodyFixedGroup([bunny, floor])
 
 # Render the image:
 if not os.path.exists("bunny_frames"):
