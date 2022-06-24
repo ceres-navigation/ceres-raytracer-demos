@@ -1,11 +1,11 @@
 import numpy as np
 from PIL import Image
 
+from crt import Entity
 from crt.lights import PointLight, SquareLight
 from crt.cameras import PinholeCamera
-from crt.passes import normal_pass, intersection_pass, instance_pass
 from crt.rotations import euler_to_rotmat
-from crt import Entity, render
+from crt.rendering import render, normal_pass, intersection_pass, instance_pass
 
 # Create the camera object:
 camera = PinholeCamera(30, [500,500], [19.5,19.5], position=np.array([4,0,0]),
