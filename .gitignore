@@ -1,3 +1,9 @@
 *.png
 *.asv
 *.swp*
+
+kernels/*
+!kernels/get_kernels.sh
+
+output_comet67p/*
+output_cornell_box/*
