@@ -53,6 +53,7 @@ for idx, et in enumerate(ets):
     image = comet_scene.render(camera, sun, min_samples=20, max_samples=100,
                                noise_threshold=0.000001, num_bounces=2)
     Image.fromarray(image.astype(np.uint8)).save('output_comet67p/frame_{}.png'.format(str(idx).zfill(3)))
+    print("Completed frame {}/{}".format(idx+1, ets.size))
 
 # Create lidar model in the comet frame:
 lidar = SimpleLidar(z_positive=True, 
