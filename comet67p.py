@@ -11,7 +11,7 @@ from crt import BodyFixedGroup, BodyFixedEntity
 
 # Number of measurements to take:
 number_of_measurements = 30
-# number_of_measurements = 300 #(This is what was used to generate the .GIF)
+# number_of_measurements = 300 # This is what was used to generate the .gif
 
 # Load the appropraite spice kernels:
 spice.furnsh('comet67p.tm')
@@ -42,18 +42,17 @@ if not os.path.exists("output_comet67p"):
     os.makedirs("output_comet67p")
 
 # Render for the trajectory:
-# print('Rendering {} frames...'.format(ets.size))
-# for idx, et in enumerate(ets):
-#     # Set the pose (using SPICE) for all objects:
-#     camera.spice_pose(et)
-#     sun.spice_position(et)
-#     comet_scene.spice_pose(et)
+print('Rendering {} frames...'.format(ets.size))
+for idx, et in enumerate(ets):   
+    # Set the pose (using SPICE) for all objects:
+    camera.spice_pose(et)
+    sun.spice_position(et)
+    comet_scene.spice_pose(et)
 
-#     # Render and save the current image:
-#     image = comet_scene.render(camera, sun, min_samples=20, max_samples=100,
-#                                noise_threshold=0.000001, num_bounces=2)
-#     Image.fromarray(image.astype(np.uint8)).save('output_comet67p/frame_{}.png'.format(str(idx).zfill(3)))
-
+    # Render and save the current image:
+    image = comet_scene.render(camera, sun, min_samples=20, max_samples=100,
+                               noise_threshold=0.000001, num_bounces=2)
+    Image.fromarray(image.astype(np.uint8)).save('output_comet67p/frame_{}.png'.format(str(idx).zfill(3)))
 
 # Create lidar model in the comet frame:
 lidar = SimpleLidar(z_positive=True, 
@@ -61,7 +60,7 @@ lidar = SimpleLidar(z_positive=True,
                     origin='CHURYUMOV-GERASIMENKO',ref='67P/C-G_CK')
 
 # Generate a batch of Lidar measurements (up to 100,000):
-ets = np.linspace(et_start, et_end, num=100000)
+ets = np.linspace(et_start, et_end, num=10000)
 lidar.batch_spice_pose(ets)
 
 # Reset comet frame:
@@ -84,5 +83,5 @@ ets_plt  = np.delete(ets, remove_inds)
 #        ylabel='Altitude (km)',
 #        title='LiDAR Simulation')
 # ax.grid()
-# fig.savefig("lidar.png")
+# fig.savefig("output_comet67p/lidar.png")
 # plt.show()
