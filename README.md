@@ -44,7 +44,7 @@ Once all files are downloaded and placed into the correct file structure, this s
 ```
 python comet67p.py
 ```
-This script will render a sequence of images between `2016 MAR 2 12:00:00` and `2016 MAR 4 12:00:00` from the perspective of the ROSETTA spacecraft in orbit around Comet 67P/Churyumov–Gerasimenko.  These images will be saved to a new directory named `output_comet67p/` with a naming convention of `frame_xxx.png`.
+This script will render a sequence of images between `2016 MAR 2 12:00:00` and `2016 MAR 4 12:00:00` from the perspective of the ROSETTA spacecraft in orbit around Comet 67P/Churyumov–Gerasimenko.  These images will be saved to a new directory named `output_comet67p/` with a naming convention of `frame_xxx.png`.  It will also shows how to perform batch lidar processing:
 
 ![](results/comet67p.gif)
 
