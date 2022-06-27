@@ -42,17 +42,17 @@ if not os.path.exists("output_comet67p"):
     os.makedirs("output_comet67p")
 
 # Render for the trajectory:
-print('Rendering {} frames...'.format(ets.size))
-for idx, et in enumerate(ets):
-    # Set the pose (using SPICE) for all objects:
-    camera.spice_pose(et)
-    sun.spice_position(et)
-    comet_scene.spice_pose(et)
+# print('Rendering {} frames...'.format(ets.size))
+# for idx, et in enumerate(ets):
+#     # Set the pose (using SPICE) for all objects:
+#     camera.spice_pose(et)
+#     sun.spice_position(et)
+#     comet_scene.spice_pose(et)
 
-    # Render and save the current image:
-    image = comet_scene.render(camera, sun, min_samples=20, max_samples=100,
-                               noise_threshold=0.000001, num_bounces=2)
-    Image.fromarray(image.astype(np.uint8)).save('output_comet67p/frame_{}.png'.format(str(idx).zfill(3)))
+#     # Render and save the current image:
+#     image = comet_scene.render(camera, sun, min_samples=20, max_samples=100,
+#                                noise_threshold=0.000001, num_bounces=2)
+#     Image.fromarray(image.astype(np.uint8)).save('output_comet67p/frame_{}.png'.format(str(idx).zfill(3)))
 
 
 # Create lidar model in the comet frame:
@@ -70,3 +70,19 @@ comet_scene.set_pose(np.zeros(3),np.eye(3))
 # Simulate Lidar:
 print('Simulating {} lidar pulses...'.format(ets.size))
 altitudes = comet_scene.batch_simulate_lidar(lidar)
+
+# Remove the zeros (Lidar detected no intersection):
+remove_inds = np.where(altitudes == 0)
+alts_plt = np.delete(altitudes, remove_inds)
+ets_plt  = np.delete(ets, remove_inds)
+
+# Plot with matplotlib (if you have it installed):
+# import matplotlib.pyplot as plt
+# fig, ax = plt.subplots()
+# ax.plot(ets_plt, alts_plt,'.k',markersize=1)
+# ax.set(xlabel='Ephemeris Time (seconds)', 
+#        ylabel='Altitude (km)',
+#        title='LiDAR Simulation')
+# ax.grid()
+# fig.savefig("lidar.png")
+# plt.show()
